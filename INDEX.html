@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dula Printers - Live Dashboard</title>
+    <style>
+        /* Reset & Base Settings */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0a0a0a; color: #fff; overflow-x: hidden; }
+
+        /* --- Cyber Intro Animation --- */
+        #cyber-intro {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000; z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            animation: fadeOut 3s forwards 2.5s; /* Fades out after 2.5 seconds */
+        }
+        .glitch-text { 
+            font-size: 3rem; font-weight: bold; text-align: center;
+            text-shadow: 2px 2px #f00, -2px -2px #00f; animation: glitch 0.2s infinite; 
+        }
+        .cyber-sub { margin-top: 15px; font-size: 1.2rem; letter-spacing: 2px; }
+        @keyframes glitch { 
+            0% { transform: translate(0) } 
+            20% { transform: translate(-2px, 2px) } 
+            40% { transform: translate(-2px, -2px) } 
+            60% { transform: translate(2px, 2px) } 
+            80% { transform: translate(2px, -2px) } 
+            100% { transform: translate(0) } 
+        }
+        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+        /* --- News Ticker (Stock Market Style) --- */
+        .ticker-wrap { width: 100%; background-color: #d32f2f; color: #fff; overflow: hidden; height: 35px; display: flex; align-items: center; font-weight: bold; letter-spacing: 1px; }
+        .ticker-move { display: inline-block; white-space: nowrap; padding-right: 100%; animation: ticker 20s linear infinite; }
+        @keyframes ticker { 0% { transform: translate3d(100vw, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+
+        /* --- Header / Dashboard Top --- */
+        header { background: #111; border-bottom: 2px solid #0ff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #0ff; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
+        .live-date { font-family: 'Courier New', monospace; color: #ffeb3b; font-size: 1.1rem; background: #222; padding: 8px 15px; border-radius: 5px; border: 1px solid #555; }
+
+        /* --- Main Content - List View --- */
+        .container { padding: 30px 20px; max-width: 900px; margin: 0 auto; }
+        .section-title { font-size: 1.4rem; margin-bottom: 25px; color: #aaa; text-transform: uppercase; border-left: 4px solid #0ff; padding-left: 10px; font-family: 'Courier New', monospace; }
+
+        .service-list { display: flex; flex-direction: column; gap: 15px; }
+        .service-item {
+            display: flex; align-items: center; justify-content: space-between;
+            background: #1a1a1a; border: 1px solid #333; padding: 15px; border-radius: 8px;
+            transition: all 0.3s ease-in-out; cursor: pointer;
+        }
+        /* Animated Hover Effect */
+        .service-item:hover { 
+            transform: translateX(10px); 
+            box-shadow: -5px 0px 15px rgba(0, 255, 255, 0.3); 
+            border-color: #0ff; background: #222; 
+        }
+
+        .service-info { display: flex; align-items: center; gap: 20px; }
+        .service-img { width: 70px; height: 70px; border-radius: 6px; object-fit: cover; border: 1px solid #555; }
+        .service-name { font-size: 1.3rem; font-weight: bold; color: #ddd; }
+        
+        /* Price Display (Stock style neon green) */
+        .service-price { font-family: 'Courier New', monospace; font-size: 1.6rem; color: #0f0; font-weight: bold; text-shadow: 0 0 8px rgba(0,255,0,0.6); }
+
+        /* --- WhatsApp Button --- */
+        .contact-btn {
+            display: block; width: fit-content; margin: 40px auto; padding: 15px 35px;
+            background: #25D366; color: #fff; text-decoration: none; font-size: 1.2rem; font-weight: bold;
+            border-radius: 50px; transition: 0.3s; box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+            text-align: center; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .contact-btn:hover { background: #1ebc5a; box-shadow: 0 0 25px rgba(37, 211, 102, 0.8); transform: scale(1.05); }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .service-item { flex-direction: column; text-align: center; gap: 15px; }
+            .service-info { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cyber-intro">
+        <div class="glitch-text">SYSTEM BOOTING...</div>
+        <p class="cyber-sub">CONNECTING TO DULA PRINTERS SERVER</p>
+        <p class="cyber-sub" style="color: #ffeb3b; margin-top:5px;">LOADING MARKET DATA...</p>
+    </div>
+
+    <div class="ticker-wrap">
+        <div class="ticker-move">
+            ✦ DULA PRINTERS ✦ වෙළඳපොළේ හොඳම මිල ✦ විමසීම්: 0716236710 ✦ උසස් තත්ත්වයේ සේවා ✦ Web Development ✦ Graphic Design ✦ Print Services ✦
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">Dula Printers</div>
+        <div class="live-date" id="liveClock">Loading Time...</div>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Market Rates Dashboard / සේවා ගාස්තු</h2>
+
+        <div class="service-list">
+            <div class="service-item">
+                <div class="service-info">
+                    <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=150&q=80" alt="Color Print" class="service-img">
+                    <div class="service-name">Color Print</div>
+                </div>
+                <div class="service-price">රු.60</div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=150&q=80" alt="Black & White Print" class="service-img">
+                    <div class="service-name">Black & White Printout</div>
+                </div>
+                <div class="service-price">රු.30</div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=150&q=80" alt="Web Design" class="service-img">
+                    <div class="service-name">Web Design</div>
+                </div>
+                <div class="service-price">රු.200+</div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=150&q=80" alt="Graphic Design" class="service-img">
+                    <div class="service-name">ග්‍රැෆික් ඩිසයින්</div>
+                </div>
+                <div class="service-price">රු.50</div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=150&q=80" alt="Video Editing" class="service-img">
+                    <div class="service-name">විඩීයෝ සංස්කරණය</div>
+                </div>
+                <div class="service-price">රු.230</div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=150&q=80" alt="AI Advertisement" class="service-img">
+                    <div class="service-name">Ai Advertisement Making</div>
+                </div>
+                <div class="service-price">රු.100</div>
+            </div>
+        </div>
+
+        <a href="https://wa.me/94716236710" target="_blank" class="contact-btn">
+            WhatsApp : 0716236710
+        </a>
+    </div>
+
+    <script>
+        // Live Date & Time Updater for the "News Style" Header
+        function updateClock() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true 
+            };
+            const formattedTime = now.toLocaleString('en-US', options);
+            document.getElementById('liveClock').innerText = "LIVE: " + formattedTime;
+        }
+        
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+        updateClock(); // Run immediately on load
+    </script>
+</body>
+</html>
